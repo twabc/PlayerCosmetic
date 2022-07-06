@@ -1,0 +1,7 @@
+name: PlayerCosmetic
+version: '${project.version}'
+main: playercosmetic.playercosmetic.PlayerCosmetic
+api-version: 1.18
+author: [ tw_abc ]
+commands:
+  cosmetic:

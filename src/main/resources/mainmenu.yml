@@ -1,0 +1,10 @@
+Displayname:
+  particle: '&f&l粒子效果類型'
+Material:
+  particle: WHITE_DYE
+Lore:
+  particle:
+    - ''
+    - '&c點擊&f[&b&n左鍵&f]&c即可查看粒子效果造型'
+Enchant:
+  particle: true

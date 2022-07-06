@@ -1,0 +1,19 @@
+Prefix: "&#F2A2E8粒子效果 &#F9B7FF» "
+
+Title:
+  Main: "&b&l造型效果系統選單"
+  Particle: "&e&l粒子效果造型"
+  Particle-select: "&e&l粒子效果選擇"
+
+Reload-file:
+  message: "&#3CB371成功重製設定資料夾"
+  permission: "PlayerCosmetic.reload"
+  no-permission: "你沒有權限使用此指令"
+
+Particle:
+  no-permission: "你沒有權限使用粒子特效: %particle%"
+  change-message: "&b成功裝上粒子裝飾&f: %particle%"
+  remove-message: "&b成功移除粒子裝飾"
+  no-particle: "&#0AFFFF你沒有在使用任何粒子特效"
+  examination-title: "&f&l測試時間&f: &6%second%秒"
+  examination-second: 5
