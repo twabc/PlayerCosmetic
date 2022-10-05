@@ -1,4 +1,4 @@
-package playercosmetic.playercosmetic.Event;
+package playercosmetic.playercosmetic;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,7 +33,9 @@ public class ParticleData {
     }
 
     public void removeID(Player player) {
-        particle.remove(player.getUniqueId());
+        if (hasID(player)) {
+            particle.remove(player.getUniqueId());
+        }
     }
 
     public void stopTask(int id) {

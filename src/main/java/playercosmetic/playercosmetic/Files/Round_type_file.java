@@ -1,4 +1,4 @@
-package playercosmetic.playercosmetic.File;
+package playercosmetic.playercosmetic.Files;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,39 +10,39 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 
-public class message {
+public class Round_type_file {
 
     private PlayerCosmetic plugin;
-    private FileConfiguration messagefile = null;
+    private FileConfiguration file = null;
     private File configFile = null;
 
 
-    public message(PlayerCosmetic plugin) {
+    public Round_type_file(PlayerCosmetic plugin) {
         this.plugin = plugin;
         saveDefaultConfig();
     }
 
     public void reloadConfig() {
         if (this.configFile == null)
-            this.configFile = new File(this.plugin.getDataFolder(), "message.yml");
+            this.configFile = new File(this.plugin.getDataFolder(), "particle-round.yml");
 
-        this.messagefile = YamlConfiguration.loadConfiguration(this.configFile);
+        this.file = YamlConfiguration.loadConfiguration(this.configFile);
 
-        InputStream a = this.plugin.getResource("message.yml");
+        InputStream a = this.plugin.getResource("particle-round.yml");
         if (a != null) {
             YamlConfiguration b = YamlConfiguration.loadConfiguration(new InputStreamReader(a));
-            this.messagefile.setDefaults(b);
+            this.file.setDefaults(b);
         }
     }
 
     public FileConfiguration getConfig() {
-        if (this.messagefile == null)
+        if (this.file == null)
             reloadConfig();
-        return this.messagefile;
+        return this.file;
     }
 
     public void saveConfig() {
-        if (this.messagefile == null || this.configFile == null)
+        if (this.file == null || this.configFile == null)
             return;
 
         try {
@@ -54,10 +54,10 @@ public class message {
 
     public void saveDefaultConfig() {
         if (this.configFile == null)
-            this.configFile = new File(this.plugin.getDataFolder(), "message.yml");
+            this.configFile = new File(this.plugin.getDataFolder(), "particle-round.yml");
 
         if (!this.configFile.exists()) {
-            this.plugin.saveResource("message.yml", false);
+            this.plugin.saveResource("particle-round.yml", false);
         }
     }
 }

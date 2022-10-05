@@ -1,21 +1,11 @@
 package playercosmetic.playercosmetic;
 
-import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 import playercosmetic.playercosmetic.Commands.cosmetic;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class util {
 
@@ -23,7 +13,7 @@ public class util {
     public util() {
         this.plugin = plugin;
     }
-    public static void PlayerOnly() {
+    public static void playerOnly() {
         Bukkit.getServer().getLogger().info("Only player can use this command");
     }
 
@@ -41,61 +31,27 @@ public class util {
         return ChatColor.translateAlternateColorCodes('&', text).replace("&", "§");
     }
 
-    public static void MsgAsPrefix(Player player, String text) {
+    public static void msgAsPrefix(Player player, String text) {
         FileConfiguration message = plugin.messagefile.getConfig();
         String prefix = util.formatText(message.getString("Prefix"));
         text = prefix + util.formatText(text);
         player.sendMessage(text);
     }
 
-    public static Inventory particleMenu() {
-        FileConfiguration message = plugin.messagefile.getConfig();
-        FileConfiguration particlemenufile = plugin.particlemenufile.getConfig();
-        Inventory inventory = Bukkit.createInventory(null, 4 * 9, util.formatText(message.getString("Title.Particle")));
-        List<String> particle_list = new ArrayList<>(particlemenufile.getConfigurationSection("Particle.").getKeys(false));
-
-        for (int i = 0; i < particle_list.size(); i++) {
-            ItemStack item = new ItemStack(Material.GRASS_BLOCK);
-
-            if (item != null) {
-                if (particlemenufile.getString("Particle." + particle_list.get(i) + ".icon") != null) {
-                    item = new ItemStack(Material.valueOf(particlemenufile.getString("Particle." + particle_list.get(i) + ".icon")));
-                } else {
-                    Bukkit.getLogger().info("PlayerCosmetic -> Missing item icon : " + particle_list.get(i));
-                }
-
-                ItemMeta meta = item.getItemMeta();
-                meta.addItemFlags(ItemFlag.HIDE_DYE);
-                meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-                meta.addItemFlags(ItemFlag.HIDE_PLACED_ON);
-                meta.addItemFlags(ItemFlag.HIDE_DESTROYS);
-                meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-
-                String name = particlemenufile.getString("Particle." + particle_list.get(i) + ".name");
-                if (name != null) {
-                    meta.setDisplayName(util.formatText(particlemenufile.getString("Particle." + particle_list.get(i) + ".name")));
-                } else {
-                    Bukkit.getLogger().info("PlayerCosmetic -> Missing item name : " + particle_list.get(i));
-                }
-
-                ArrayList<String> lore = new ArrayList<>();
-                for (int line = 0; line < particlemenufile.getStringList("Particle." + particle_list.get(i) + ".lore").size(); line++) {
-                    lore.add(util.formatText(particlemenufile.getStringList("Particle." + particle_list.get(i) + ".lore").get(line)));
-                }
-
-                meta.setLore(lore);
-                if (particlemenufile.getBoolean("Particle." + particle_list.get(i) + ".enchant") == true) {
-                    meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                    meta.addEnchant(Enchantment.KNOCKBACK, 1, true);
-                }
-
-                item.setItemMeta(meta);
-                inventory.addItem(item);
+    public static void stopParticle(Player player, ItemStack item) {
+        ParticleData particleData = new ParticleData(player.getUniqueId());
+        FileConfiguration message_file = plugin.plugin.messagefile.getConfig();
+        if (item.equals(cosmetic.stop())) {
+            if (particleData.hasID(player)) {
+                particleData.stopTask(particleData.getID(player));
+                particleData.removeID(player);
+                player.closeInventory();
+                return;
+            } else {
+                util.msgAsPrefix(player, message_file.getString("Particle.no-particle"));
+                player.closeInventory();
+                return;
             }
         }
-        inventory.setItem(27, cosmetic.back());
-        inventory.setItem(35, cosmetic.stop());
-        return inventory;
     }
 }

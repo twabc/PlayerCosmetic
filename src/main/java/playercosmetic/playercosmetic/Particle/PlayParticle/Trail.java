@@ -1,10 +1,11 @@
-package playercosmetic.playercosmetic.Event;
+package playercosmetic.playercosmetic.Particle.PlayParticle;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import playercosmetic.playercosmetic.ParticleData;
 import playercosmetic.playercosmetic.PlayerCosmetic;
 import playercosmetic.playercosmetic.util;
 

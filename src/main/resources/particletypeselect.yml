@@ -1,0 +1,9 @@
+Particle-type:
+  Round:
+    name: '&d&l環繞類型'
+    icon: BLAZE_POWDER
+    enchant: true
+    slot: 10
+    lore:
+      - '&7&l---------------------'
+      - '&c點擊&f[&b&n左鍵&f]&c前往環繞粒子效果選擇介面'
